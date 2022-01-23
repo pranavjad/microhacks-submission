@@ -10,26 +10,27 @@ const libraries = ["places"];
 
 
 export default function Dashboard() {
-    const [data,setData] = useState({});
+    const [data,setData] = useState([]);
     const [value,setValue] = useState('');
     const [lat,setLat] = useState('');
     const [long,setLong] = useState('');
     // const [data,setData] = useState({});
+    // useEffect(()=> {
+    //     const getGeoLocation = () => {
+    //         if(navigator.geolocation) {
+    //             navigator.geolocation.getCurrentPosition((position)=> {
+    //                 setLat(position.coords.latitude);
+    //                 setLong(position.coords.longitude);
+    //             })
+    //         }
+    //     }
+    //     getGeoLocation();
+    // },[]);
     const {isLoaded,loadError} = useLoadScript({
         googleMapsApiKey: 'AIzaSyBcifVjH0g_joBhOZsdjhkzAXTjuzqJ56s',
         libraries,
     });
-    useEffect(()=> {
-        const getGeoLocation = () => {
-            if(navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition((position)=> {
-                    setLat(position.coords.latitude);
-                    setLong(position.coords.longitude);
-                })
-            }
-        }
-        getGeoLocation();
-    },[]);
+    
     if(loadError) return "Error Loading Maps";
     if(!isLoaded) return "Loading Maps";
     const getResults = (query,lat,lng) => {
@@ -37,14 +38,14 @@ export default function Dashboard() {
         var loc = new window.google.maps.LatLng(lat,lng);
         var request = {
             location: loc,
-            radius: '500',
+            radius: 500,
             query: query,
         };    
         var service = new window.google.maps.places.PlacesService(document.createElement('div'));
         service.textSearch(request,(results,status)=> {
             if (status == window.google.maps.places.PlacesServiceStatus.OK) {
-                console.log(results);
-                
+                console.log(sortByBayesAvg(results));
+                setData(results);
                 results.map((obj,idx) => {
                     let request = {
                         placeId: obj.place_id,
@@ -53,9 +54,13 @@ export default function Dashboard() {
                     if(obj.photos) obj['photoUrl'] = obj.photos[0].getUrl();
                     service.getDetails(request,(reviewResults,status) => {
                         if(status == window.google.maps.places.PlacesServiceStatus.OK){
-                            obj['review'] = reviewResults;
-                            setData(results);
-                            console.log(results);
+                            // temp[idx]['review'] = reviewResults;
+                            setData((oldData)=>{
+                                let newData = oldData.slice();
+                                newData[idx]['review'] = reviewResults;
+                                return newData;
+                            });
+                            // console.log(results);
                         }
                     });
                 });
@@ -96,7 +101,7 @@ export default function Dashboard() {
             {
                 (Object.keys(data).length!=0)?<>
                     <div className="SectionTitle">
-                            Found results for:
+                            Results:
                         </div>
                         {/* {console.log(data)} */}
                         <ResultTable data={sortByBayesAvg(data)}/>
@@ -105,7 +110,7 @@ export default function Dashboard() {
                         </div>
                         <RatingSummary data={sortByBayesAvg(data)} />
                         <div className="SectionTitle">
-                            Here's what you're best competition looks like
+                            Here's what your best competition looks like
                         </div>
                         <PictureSummary data={sortByBayesAvg(data)}/>
                 </>:<div className="SectionTitle" style={{lineHeight: '2'}}>

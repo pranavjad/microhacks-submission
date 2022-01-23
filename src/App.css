@@ -1,38 +1,156 @@
-.App {
-  text-align: center;
+body {
+  font-family: "Roboto", sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.Topbar {
+  margin: 20px;
+  font-size: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.Dashboard {
+  margin: 5px;
+  font-size: 20px;
+  width: "100%";
+  height: "100%";
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.locationForm {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-direction: row;
+}
+.geoLocForm {
+  display: flex;
+  flex-direction: row;
 }
 
-.App-link {
-  color: #61dafb;
+form {
+  margin: 20px;
+}
+.geoLocInput {
+  flex-grow: 1;
+  font-size: 1vw;
+  padding: 5px;
+  margin-top: 10px;
+  /* margin: 20px; */
+}
+.FormLabel {
+  font-weight: bold;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.FormInput {
+  flex-grow: 4;
+  font-size: 2vw;
+  padding: 10px;
+  /* margin: 20px; */
+  /* margin-left: 20px; */
+}
+
+.SubmitButton {
+  flex-grow: 1;
+  /* width: 100px; */
+  height: auto;
+  margin-left: 20px;
+  /* margin-right: 20px; */
+  font-size: 20px;
+}
+
+.ResultTableContainer {
+  margin: 20px;
+  height: 200px;
+  overflow: auto;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.ResultTable {
+  text-align: left;
+  padding: 10px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.ResultTile {
+  /* height: 50px; */
+  height: 100px;
+  padding: 5px;
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: row;
+}
+
+.ResultTable thead th {
+  position: sticky;
+  top: 0;
+  background: white;
+  padding: 10px;
+}
+.ResultTable tbody {
+  font-size: 15px;
+}
+.ResultTable tbody td {
+  padding: 10px;
+}
+.ResultTable tbody tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.RatingSummaryContainer {
+  margin: 20px;
+}
+
+.my-masonry-grid {
+  display: -webkit-box; /* Not needed if autoprefixing */
+  display: -ms-flexbox; /* Not needed if autoprefixing */
+  display: flex;
+  margin-left: -10px; /* gutter size offset */
+  width: auto;
+}
+.my-masonry-grid_column {
+  padding-left: 10px; /* gutter size */
+  background-clip: padding-box;
+}
+
+/* Style your items */
+/* .my-masonry-grid_column > img {
+  border: 1px solid black;
+  margin-bottom: 30px;
+} */
+
+.ReviewTileContainer {
+  /* change div to reference your elements you put in <Masonry> */
+  background: white;
+  margin-bottom: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 10px;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.ReviewTileFooter {
+  padding: 5px;
+  position: sticky;
+  bottom: 0;
+  background: inherit;
+  font-size: 15px;
+  width: 100%;
+  /* clip-path: inset(-1px 0px 0px 0px); */
+}
+
+.SectionTitle {
+  margin: 20px;
+}
+
+.ImageTileContainer {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.ImageTileContainer > img {
+  border-radius: 3px;
+}
+
+.ImageTileCaption {
+  margin-top: 10px;
 }
